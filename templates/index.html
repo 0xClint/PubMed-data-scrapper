@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+    <title>PubMed Data</title>
+  </head>
+  <body>
+    <div class="hero bg-opacity-50 bg-center bg-cover text-white">
+      <img
+        src="{{url_for('static',filename='bg1.jpg')}}"
+        alt=""
+        class="absolute w-[100%] h-[60vh] -z-10"
+      />
+      <nav
+        class="flex bg-transparent text-white items-center justify-between px-10"
+      >
+        <div class="list-none text-[1.2rem] font-bold flex gap-5 py-4">
+          <li class="cursor-pointer hover:text-gray-200">Home</li>
+          <li class="cursor-pointer hover:text-gray-200">data</li>
+          <li class="cursor-pointer hover:text-gray-200">Authors</li>
+          <li class="cursor-pointer hover:text-gray-200">Citations</li>
+        </div>
+        <div class="text-[1.5rem] font-bold cursor-pointer">PubMed Search</div>
+      </nav>
+      <h1 class="pt-[3rem] mb-[1rem] text-center text-[3rem] font-bold">
+        Pub Med Search
+      </h1>
+      <form
+        class="form-signin flex flex-col w-full justify-center items-center"
+        method="post"
+      >
+        <div class="w-[450px] my-3">
+          <label for="inputEmail" class="font-bold text-[1.1rem]"
+            >Search Text</label
+          >
+          <input
+            type="text"
+            name="searchText"
+            id="username"
+            class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+            placeholder="Search text"
+            required
+          />
+        </div>
+        <div class="w-[450px] my-3">
+          <label for="inputPassword" class="font-bold text-[1.1rem] my-6"
+            >Page no.</label
+          >
+          <input
+            type="text"
+            name="pageNo"
+            id="inputPassword"
+            class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+            placeholder="page no."
+            required
+          />
+        </div>
+        <div class="flex space-x-2 justify-center">
+          <button
+            type="submit"
+            class="inline-block px-4 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out my-4"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+    <h2 class="font-semibold text-[1.3rem] pl-[5rem] pt-[2rem] bg-white">
+      Search Result :
+    </h2>
+    <div class="flex flex-col justify-center items-center bg-white">
+      <table class="w-[95vw]">
+        <thead class="border-b">
+          <tr class="w-[100vw]">
+            <th
+              scope="col"
+              class="text-sm font-medium text-gray-900 px-4 py-4 text-left w-[25%]"
+            >
+              Title
+            </th>
+            <th
+              scope="col"
+              class="text-sm font-medium text-gray-900 px-4 py-4 text-left w-[25%]"
+            >
+              Author
+            </th>
+            <th
+              scope="col"
+              class="text-sm font-medium text-gray-900 px-4 py-4 text-left w-[20%]"
+            >
+              Cite
+            </th>
+            <th
+              scope="col"
+              class="text-sm font-medium text-gray-900 px-4 py-4 text-left w-[20%]"
+            >
+              Abstract Url
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr class="border-b">
+            <td class="px-4 py-4 text-sm font-medium text-gray-900">
+              Dysphagie causée par un anévrisme aortique et une dilatation
+              atriale gauche chez un homme de 89 ans
+            </td>
+            <td class="px-4 py-4 text-sm font-medium text-gray-900">
+              Sharma MM, Lalazissis GA, Hillebrandt W, Ring P.
+            </td>
+            <td class="px-4 py-4 text-sm font-medium text-gray-900">
+              Surv Ophthalmol. 2021 Jan-Feb;66(1):150. doi:
+              10.1016/j.survophthal.2020.06.005. Epub 2020 Jul 9.
+            </td>
+            <td class="px-4 py-4 text-sm font-medium text-gray-900">
+              https://pubmed.ncbi.nlm.nih.gov//33223043/
+            </td>
+          </tr> -->
+          {% for x in data %}
+          <tr class="border-b">
+            <td class="px-4 py-4 text-sm font-medium text-gray-900 whi">
+              {{x.title}}
+            </td>
+            <td class="px-4 py-4 text-sm font-medium text-gray-900">
+              {{x.author}}
+            </td>
+            <td class="px-4 py-4 text-sm font-medium text-gray-900">
+              {{x.cite}}
+            </td>
+            <td class="px-4 py-4 text-sm font-medium text-gray-900">
+              {{x.url}}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
